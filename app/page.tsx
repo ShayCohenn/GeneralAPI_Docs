@@ -1,11 +1,17 @@
 "use client";
 
 import { ElementRef, useEffect, useRef, useState } from "react";
-import Navbar from "./_components/Navbar";
-import Sidebar from "./_components/Sidebar";
+import Navbar from "../components/custom-components/Navbar";
+import Sidebar from "../components/custom-components/Sidebar";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, Search } from "lucide-react";
+import { useSearch } from "@/hooks/use-search";
+import SearchCommand from "@/components/custom-components/SearchCommand";
+import Item from "@/components/custom-components/Item";
+import SidebarContent from "@/components/custom-components/SidebarContent";
+import HomePage from "@/app/(pages)/HomePage";
+import Docs from "./(pages)/Docs";
 
 export default function Home() {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -76,6 +82,8 @@ export default function Home() {
       setTimeout(() => setIsResetting(false), 300);
     }
   };
+
+  const search = useSearch();
   return (
     <div>
       <div>
@@ -87,7 +95,9 @@ export default function Home() {
           isResetting={isResetting}
           resetWidth={resetWidth}
           sidebarRef={sidebarRef}
-        >PLACEHOLDER</Sidebar>
+        >
+          <SidebarContent />
+        </Sidebar>
         {isCollapsed && !isResetting && (
           <MenuIcon
             role="button"
@@ -104,7 +114,11 @@ export default function Home() {
           isMobile && "left-0 w-full",
           isCollapsed && "pl-12"
         )}
-      ></main>
+      >
+        <SearchCommand />
+        <HomePage />
+        <Docs />
+      </main>
     </div>
   );
 }

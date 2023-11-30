@@ -30,8 +30,9 @@ const Sidebar = ({
     <aside
       ref={sidebarRef}
       className={cn(
-        `group/sidebar fixed bg-neutral-950 top-16 h-full border-r-2 border-secondary overflow-y-auto flex w-60 
-          flex-col z-[99999] hover:border-r-4`,
+        `group/sidebar fixed dark:bg-neutral-950 bg-neutral-100 top-16 h-full 
+        border-r-2 border-secondary overflow-y-auto flex w-60 flex-col z-50 
+        hover:border-r-4`,
         isResetting && "transition-all ease-in-out duration-300",
         isMobile && "w-0"
       )}
@@ -40,7 +41,9 @@ const Sidebar = ({
         onClick={collapse}
         role="button"
         className={cn(
-          "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
+          `h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 
+          dark:hover:bg-neutral-600 absolute top-3 right-3 opacity-0 
+          group-hover/sidebar:opacity-100 transition`,
           isMobile && "opacity-100"
         )}
       >
