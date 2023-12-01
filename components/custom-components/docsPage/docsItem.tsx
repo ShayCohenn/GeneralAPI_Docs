@@ -1,19 +1,7 @@
-import { paramerterType } from "@/constants";
-
-interface docsItemProp {
-    title: string;
-    endpoint: string;
-    method: string;
-    parameters: paramerterType[];
-    description: string;
-    limiter:string;
-    response: string;
-}
-
-const docsItem = () => {
+const DocsItem = () => {
   return (
     <div>docsItem</div>
   )
 }
 
-export default docsItem
+export default DocsItem
