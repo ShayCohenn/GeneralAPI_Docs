@@ -1,4 +1,4 @@
-import DocsItem from "@/components/custom-components/docsPage/DocsItem";
+import DocsItem from "@/components/custom-components/docsPage/docsItem";
 import { endpoints } from "@/constants";
 
 const Docs = () => {
