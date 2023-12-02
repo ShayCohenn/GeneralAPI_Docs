@@ -50,7 +50,7 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
         <p className="my-2">
           Endpoint:
           <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm">
-            "{data.endpoint}"
+          &quot;{data.endpoint}&quot;
           </code>
         </p>
         <p className="my-2">
