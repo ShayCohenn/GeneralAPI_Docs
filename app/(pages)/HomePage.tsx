@@ -4,7 +4,7 @@ import { ChevronDown, Rocket } from "lucide-react";
 
 const HomePage = () => {
   return (
-    <div className="h-screen mr-10" id="home">
+    <div className="h-screen sm:mr-0 mr-12" id="home">
       <HeroImage />
       <div className="flex-col items-center justify-center">
         <p

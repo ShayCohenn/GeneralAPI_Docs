@@ -5,7 +5,7 @@ export interface parameterType {
   required: boolean;
 }
 
-export interface docsItemProp {
+export interface DocsItemProp {
   title: string;
   endpoint: string;
   method: string;
@@ -17,7 +17,7 @@ export interface docsItemProp {
 }
 
 export interface Categories {
-  [key: string]: docsItemProp[];
+  [key: string]: DocsItemProp[];
 }
 
 export const endpoints: Categories = {
@@ -38,14 +38,7 @@ export const endpoints: Categories = {
       limiter: "2 requests per second",
       endpointExample: "https://general-api.vercel.app/qr/generate?data=test",
       response: `{
-        "QR_URL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMAQAAAABwoKUrA
-        AABUElEQVR42u3dQYrDMAwFUNML+P63zA06MCST2JYzUJCbxfOilOC30eIjyykt70/XVlAURRPpVvr1
-        +2z/2LcFW17l44WiKPrPukbQkUNdGE22qDCKounZtMUt090WFUZRdHU2HUs2oSj6sGwqpcbnPNmEoui
-        ybHrPcuh8Zt6EoujibJr2UtFo/NiiwiiKZmZT/G7BpKu6bFFhFEXTs+nunm5ftdunwiiKpp/p6l8ONd
-        +6qXgTXyqMomhy3xRF1TBv6kJLNqEomp9N9XodF53krn2TeROKouvOdPGv6JqD3fkhm1AUze+bbu7pu
-        pQyC0dRdGXfNDnnRQGlb0JRdFE2DS99T35K10SVCqMomp5N0ftNk4OdvglF0S9m07CqezoURZ/VN3VX
-        ebIJRdFF2TTOm4bxk2xCUXRxNg3PmjBqpkxnB6XCKIpmZpO/fEBR9HH0B5AsmAY1Y0vGAAAAAElFTkS
-        uQmCC"
+        "QR_URL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMAQAAAABwoKUrAAABUElEQVR42u3dQYrDMAwFUNML+P63zA06MCST2JYzUJCbxfOilOC30eIjyykt70/XVlAURRPpVvr1+2z/2LcFW17l44WiKPrPukbQkUNdGE22qDCKounZtMUt090WFUZRdHU2HUs2oSj6sGwqpcbnPNmEouiybHrPcuh8Zt6EoujibJr2UtFo/NiiwiiKZmZT/G7BpKu6bFFhFEXTs+nunm5ftdunwiiKpp/p6l8ONd+6qXgTXyqMomhy3xRF1TBv6kJLNqEomp9N9XodF53krn2TeROKouvOdPGv6JqD3fkhm1AUze+bbu7pupQyC0dRdGXfNDnnRQGlb0JRdFE2DS99T35K10SVCqMomp5N0ftNk4OdvglF0S9m07CqezoURZ/VN3VXebIJRdFF2TTOm4bxk2xCUXRxNg3PmjBqpkxnB6XCKIpmZpO/fEBR9HH0B5AsmAY1Y0vGAAAAAElFTkSuQmCC"
       }`,
     },
   ],
