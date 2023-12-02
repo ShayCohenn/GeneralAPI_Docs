@@ -25,21 +25,6 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
     }, 1000);
   };
 
-  const format = (str: string) => {
-    let formattedResponse;
-    try {
-      const sanitizedResponse = str.replace(/\0/g, ""); // remove null characters
-      formattedResponse = JSON.stringify(
-        JSON.parse(sanitizedResponse),
-        null,
-        2
-      );
-    } catch (error) {
-      formattedResponse = "Invalid JSON"; // handle parsing errors
-    }
-    return formattedResponse;
-  };
-
   return (
     <>
       <div className="lg:ml-4 md:ml-2">
@@ -88,7 +73,7 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
           <details>
             <summary>Response example:</summary>
             <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm overflow-x-scroll">
-              {format(data.response)}
+              {data.response}
             </code>
           </details>
         <div>
