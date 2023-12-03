@@ -11,7 +11,7 @@ const SidebarContent = () => {
     <div>
         <SearchItem/>
         {Object.keys(endpoints).map((key) => (
-          <Item label={key} hasChildren/>
+          <Item label={key} hasChildren key={key}/>
         ))}
     </div>
   )
