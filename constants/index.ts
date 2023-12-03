@@ -1,6 +1,9 @@
+import { BadgeDollarSign, CloudSun, LucideIcon, PartyPopper, QrCode, Trophy } from "lucide-react";
+
 export interface parameterType {
   name: string;
-  value: string;
+  description: string;
+  example: string;
   type: string;
   required: boolean;
 }
@@ -9,7 +12,7 @@ export interface DocsItemProp {
   title: string;
   endpoint: string;
   method: string;
-  parameters: parameterType[];
+  parameters?: parameterType[];
   description: string;
   limiter: string;
   endpointExample: string;
@@ -20,6 +23,14 @@ export interface Categories {
   [key: string]: DocsItemProp[];
 }
 
+export const iconMapping: Record<string, LucideIcon> = {
+  QR: QrCode,
+  Finance: BadgeDollarSign,
+  Weather: CloudSun,
+  Sports: Trophy,
+  Entertainment: PartyPopper
+};
+
 export const endpoints: Categories = {
   QR: [
     {
@@ -29,7 +40,8 @@ export const endpoints: Categories = {
       parameters: [
         {
           name: "data",
-          value: "The data to be encoded",
+          description: "The data to be encoded",
+          example: "?data=test",
           type: "string",
           required: true,
         },
@@ -38,7 +50,14 @@ export const endpoints: Categories = {
       limiter: "2 requests per second",
       endpointExample: "https://general-api.vercel.app/qr/generate?data=test",
       response: `{
-        "QR_URL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMAQAAAABwoKUrAAABUElEQVR42u3dQYrDMAwFUNML+P63zA06MCST2JYzUJCbxfOilOC30eIjyykt70/XVlAURRPpVvr1+2z/2LcFW17l44WiKPrPukbQkUNdGE22qDCKounZtMUt090WFUZRdHU2HUs2oSj6sGwqpcbnPNmEouiybHrPcuh8Zt6EoujibJr2UtFo/NiiwiiKZmZT/G7BpKu6bFFhFEXTs+nunm5ftdunwiiKpp/p6l8ONd+6qXgTXyqMomhy3xRF1TBv6kJLNqEomp9N9XodF53krn2TeROKouvOdPGv6JqD3fkhm1AUze+bbu7pupQyC0dRdGXfNDnnRQGlb0JRdFE2DS99T35K10SVCqMomp5N0ftNk4OdvglF0S9m07CqezoURZ/VN3VXebIJRdFF2TTOm4bxk2xCUXRxNg3PmjBqpkxnB6XCKIpmZpO/fEBR9HH0B5AsmAY1Y0vGAAAAAElFTkSuQmCC"
+        "QR_URL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMAQAAAABwo
+        KUrAAABUElEQVR42u3dQYrDMAwFUNML+P63zA06MCST2JYzUJCbxfOilOC30eIjyykt70/XV
+        lAURRPpVvr1+2z/2LcFW17l44WiKPrPukbQkUNdGE22qDCKounZtMUt090WFUZRdHU2HUs2
+        oSj6sGwqpcbnPNmEouiybHrPcuh8Zt6EoujibJr2UtFo/NiiwiiKZmZT/G7BpKu6bFFhFE
+        XTs+nunm5ftdunwiiKpp/p6l8ONd+6qXgTXyqMomhy3xRF1TBv6kJLNqEomp9N9XodF53
+        krn2TeROKouvOdPGv6JqD3fkhm1AUze+bbu7pupQyC0dRdGXfNDnnRQGlb0JRdFE2DS9
+        9T35K10SVCqMomp5N0ftNk4OdvglF0S9m07CqezoURZ/VN3VXebIJRdFF2TTOm4bxk2
+        xCUXRxNg3PmjBqpkxnB6XCKIpmZpO/fEBR9HH0B5AsmAY1Y0vGAAAAAElFTkSuQmCC"
       }`,
     },
   ],
@@ -50,13 +69,14 @@ export const endpoints: Categories = {
       parameters: [
         {
           name: "ticker",
-          value: "Ticker symbol",
+          description: "Ticker symbol",
+          example: "?ticker=TSLA",
           type: "string",
           required: true,
         },
       ],
-      description:
-        "Get general information about a company providing its ticker symbol",
+      description: `Get general information about a company providing its ticker symbol,
+        accepts values in lower and upper case`,
       limiter: "1 request per second",
       endpointExample:
         "https://general-api.vercel.app/finance/general-info?ticker=tsla",
@@ -192,12 +212,14 @@ export const endpoints: Categories = {
       parameters: [
         {
           name: "ticker",
-          value: "Ticker symbol",
+          description: "Ticker symbol",
+          example: "?ticker=TSLA",
           type: "string",
           required: true,
         },
       ],
-      description: "Get the current price of any company's stock",
+      description: `Get the current price of any company's stock,
+      accepts values in lower and upper case`,
       limiter: "1 request per second",
       endpointExample:
         "https://general-api.vercel.app/finance/current-value?ticker=tsla",
@@ -218,24 +240,27 @@ export const endpoints: Categories = {
       parameters: [
         {
           name: "from_curr",
-          value: "Convert from this currency, USD/EUR/GBP etc...",
+          description: "Convert from this currency, USD/EUR/GBP etc...",
+          example: "?from_curr=USD",
           required: true,
           type: "string",
         },
         {
           name: "to_curr",
-          value: "Convert to this currency, USD/EUR/GBP etc...",
+          description: "Convert to this currency, USD/EUR/GBP etc...",
+          example: "&to_curr=EUR",
           required: true,
           type: "string",
         },
         {
           name: "amount",
-          value: "The amount you want to convert, default is 1",
+          description: "The amount you want to convert, default is 1",
+          example: "&amount=5.5",
           required: false,
           type: "float",
         },
       ],
-      description: "Convert currency for example USD to EUR, GBP to JPY etc...",
+      description: `Convert currency for example USD to EUR, GBP to JPY etc... accepts values in lower and upper case`,
       limiter: "1 request per second",
       endpointExample:
         "https://general-api.vercel.app/finance/currency-convert?from_curr=USD&to_curr=EUR&amount=10",
@@ -256,32 +281,38 @@ export const endpoints: Categories = {
       parameters: [
         {
           name: "ticker",
-          value: "Ticker symbol",
+          description: "Ticker symbol",
+          example: "?ticker=AAPL",
           required: true,
           type: "string",
         },
         {
           name: "start",
-          value: "Start date in format YYYY-MM-DD",
+          description:
+            "Start date in format YYYY-MM-DD (no need for leading 0's)",
+          example: "?start=2020-2-4",
           required: true,
           type: "string",
         },
         {
           name: "end",
-          value:
+          description:
             "End date in format YYYY-MM-DD, if you want data until present day no need for a date the value can be 'now' or 'today'",
+          example: "&end=now/&end=2021-10-25",
           required: true,
           type: "string",
         },
         {
           name: "interval",
-          value:
+          description:
             "Data interval, default is 1 day possible intervals:1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo",
+          example: "&interval=30m",
           required: false,
           type: "string",
         },
       ],
-      description: "Get stock data from any period of time until present day",
+      description: `Get stock data from any period of time until present day,
+      accepts values in lower and upper case`,
       limiter: "1 request per 2 seconds / 10 requests per minute",
       endpointExample:
         "https://general-api.vercel.app/finance/stock-data?ticker=msft&start=2023-11-29&end=now",
@@ -316,27 +347,31 @@ export const endpoints: Categories = {
   ],
   Weather: [
     {
-      title:"General weather data",
+      title: "General weather data",
       endpoint: "/weather/general",
       method: "GET",
       parameters: [
         {
           name: "city",
-          value: "City name",
+          description: "City name",
+          example: "?city=Lod",
           required: true,
           type: "string",
         },
         {
           name: "lang",
-          value: "Language, default is en(English)",
+          description: "Language, default is en(English)",
+          example: "&lang=he",
           required: false,
           type: "string",
-        }
+        },
       ],
-      description:"Get general weather data for any city",
+      description:
+        "Get general weather data for any city, accepts values in lower and upper case",
       limiter: "1 request per second",
-      endpointExample:"https://general-api.vercel.app/weather/general?city=london",
-      response:`{
+      endpointExample:
+        "https://general-api.vercel.app/weather/general?city=london",
+      response: `{
         "city":"London",
         "coord":{
           "lon":-0.1257,
@@ -382,7 +417,7 @@ export const endpoints: Categories = {
         "cloud_percentage":53,
         "sunrise":"2023-12-01 07:43:27",
         "sunset":"2023-12-01 15:55:42"
-      }`
+      }`,
     },
     {
       title: "Current temperature",
@@ -391,25 +426,124 @@ export const endpoints: Categories = {
       parameters: [
         {
           name: "city",
-          value: "City name",
+          description: "City name",
+          example: "?city=tokyo",
           required: true,
           type: "string",
         },
         {
           name: "unit",
-          value: "Unit, default is celsius - can be celsius, fahrenheit or kelvin",
+          description:
+            "Unit, default is celsius - can be celsius, fahrenheit or kelvin",
+          example: "&unit=kelvin",
           required: false,
           type: "string",
-        }
+        },
       ],
-      description: "Get current temperature for any city",
-      limiter:"1 request per second",
-      endpointExample:"https://general-api.vercel.app/weather/current-temperature?city=paris&unit=kelvin",
-      response:`{
+      description:
+        "Get current temperature for any city, accepts values in lower and upper case",
+      limiter: "1 request per second",
+      endpointExample:
+        "https://general-api.vercel.app/weather/current-temperature?city=paris&unit=kelvin",
+      response: `{
         "current temperature":276.07
-      }`
-    }
+      }`,
+    },
   ],
-  // Sports: [],
-  // Entertainment: [],
+  Sports: [
+    {
+      title: "Upcoming football matches",
+      endpoint: "/sports/football/matches",
+      method: "GET",
+      parameters: [
+        {
+          name: "day",
+          description: `The day of the matches, there are 3 options:
+           0 - today, 1 - tomorrow, 2 - in 2 days, default is 0(today)`,
+          example: "?day=0",
+          type: "number",
+          required: false,
+        },
+      ],
+      description: `Get an array of the upcoming football matches from the 
+      more popular leagues and competitions untill the next 2 days`,
+      limiter: "1 reqest per 2 seconds or 10 per minute",
+      endpointExample:
+        "https://general-api.vercel.app/sports/football/matches?day=2",
+      response: `[{
+        "event":"Serie A",
+        "time":"14:45 EST",
+        "team1":"Torino",
+        "team2":"Atalanta"
+      },{
+        "event":"La Liga",
+        "time":"15:00 EST",
+        "team1":"Celta Vigo",
+        "team2":"Cadiz"
+      },{
+        "event":"FA Cup",
+        "time":"14:45 EST",
+        "team1":"Wimbledon",
+        "team2":"Ramsgate"
+      }]`,
+    },
+  ],
+  Entertainment: [
+    {
+      title: "Random dad jokes",
+      endpoint: "/entertainment/dad-joke",
+      method: "GET",
+      description: "Get 1 random dad joke",
+      limiter: "1 request per second",
+      endpointExample: "https://general-api.vercel.app/entertainment/dad-joke",
+      response: `{
+        "joke":"I'm on a whiskey diet. I've lost three days already."
+      }`,
+    },
+    {
+      title: 'Random "yo momma" joke',
+      endpoint: "/entertainment/yo-momma-joke",
+      method: "GET",
+      description: "Get 1 random yo momma joke",
+      limiter: "1 request per second",
+      endpointExample: "https://general-api.vercel.app/entertainment/yo-momma-joke",
+      response: `{
+        "joke":"Yo mamma is so fat every time she tries to hide she is hiding that object that she is trying to hide by"
+      }`,
+    },
+    {
+      title: "Random Chuck Norris joke",
+      endpoint: "/entertainment/chuck-norris-joke",
+      method: "GET",
+      description: "Get 1 random chuck norris joke",
+      limiter: "1 request per second",
+      endpointExample: "https://general-api.vercel.app/entertainment/chuck-norris-joke",
+      response: `{
+        "joke":"Chuck Norris puts the hard in hard-on."
+      }`,
+    },
+    {
+      title: "Random fact",
+      endpoint: "/entertainment/random-fact",
+      method: "GET",
+      description: "Get 1 random fact",
+      limiter: "1 request per second",
+      endpointExample: "https://general-api.vercel.app/entertainment/random-fact",
+      response: `{
+        "fact":"Tigers not only have striped fur, they have striped skin!"
+      }`,
+    },
+    {
+      title: "Random riddle",
+      endpoint: "/entertainment/random-riddle",
+      method: "GET",
+      description: "Get 1 random riddle",
+      limiter: "1 request per second",
+      endpointExample: "https://general-api.vercel.app/entertainment/random-riddle",
+      response: `{
+        "riddle":"Where are the lakes that are referred to in the “Los Angeles Lakers?“",
+        "answer":"In Minnesota. The team was originally known as the Minneapolis Lakers and kept the name when they moved west"
+      }`,
+    },
+  ],
 };

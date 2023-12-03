@@ -31,8 +31,8 @@ const Sidebar = ({
       ref={sidebarRef}
       className={cn(
         `group/sidebar fixed dark:bg-neutral-950 bg-neutral-100 top-16 h-full 
-        border-r-2 border-secondary overflow-y-auto flex w-60 flex-col z-50 
-        hover:border-r-4`,
+        border-r-2 border-neutral-200 dark:border-neutral-800 overflow-y-auto 
+        flex w-60 flex-col z-50 `,
         isResetting && "transition-all ease-in-out duration-300",
         isMobile && "w-0"
       )}

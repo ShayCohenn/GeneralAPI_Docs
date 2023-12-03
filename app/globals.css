@@ -8,6 +8,7 @@ html, body, :root{
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 16rem;
 }
 
 @layer base {

@@ -4,7 +4,10 @@ import Image from "next/image";
 
 const Navbar = () => {
   return (
-    <nav className="h-16 z-[99999] w-full dark:bg-neutral-950 bg-neutral-100 fixed flex justify-between items-center border-b border-secondary">
+    <nav className="h-16 z-[99999] w-full dark:bg-neutral-950 
+    bg-neutral-100 fixed flex justify-between items-center
+     shadow-xl shadow-black/10 dark:shadow-white/10">
+      <a href="#home">
       <Image
         src="logo2.svg"
         alt="Logo"
@@ -19,6 +22,7 @@ const Navbar = () => {
         width={50}
         className="dark:invert sm:hidden block"
       />
+      </a>
       <div className="flex items-center gap-x-2">
         <a
           className="hover:border-b border-primary cursor-pointer"

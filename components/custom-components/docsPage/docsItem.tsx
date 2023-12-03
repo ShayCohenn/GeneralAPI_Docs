@@ -10,33 +10,47 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DocsItemProp } from "@/constants";
-import { Check, Copy, X } from "lucide-react";
+import { Check, Copy, Medal, X } from "lucide-react";
 import { useState } from "react";
 
 const DocsItem = ({ data }: { data: DocsItemProp }) => {
-  const [copied, setCopied] = useState(false);
+  const [lastCopiedItem, setLastCopiedItem] = useState<string | null>(null);
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(data.endpointExample);
+  const onCopy = (text: string, item: string) => {
+    navigator.clipboard.writeText(text);
 
-    setCopied(true);
+    setLastCopiedItem(item);
     setTimeout(() => {
-      setCopied(false);
+      setLastCopiedItem(null);
     }, 1000);
   };
 
   return (
     <>
-      <div className="lg:ml-4 md:ml-2">
-        <h1 className="mt-4 text-xl font-semibold lg:text-xl xl:text-2xl 2xl:text-3xl">
-          {data.title}:
+      <div className="lg:ml-4 md:ml-2" id={data.title}>
+        <h1 className="mt-4 text-2xl font-semibold xl:text-3xl 2xl:text-4xl">
+          • {data.title}:
         </h1>
-        <p className="mb-4">{data.description}</p>
-        <p className="my-2">
+        <p className="mb-4 text-lg italic">&quot;{data.description}&quot;</p>
+        <p className="my-2 flex items-center">
           Endpoint:
-          <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm">
-          &quot;{data.endpoint}&quot;
-          </code>
+          <div
+            className="dark:bg-gray-800 relative bg-gray-300 flex
+            py-1 px-2 rounded-sm items-center w-fit"
+          >
+            <code>{data.endpoint}</code>
+            <button
+              onClick={() => onCopy(data.endpoint, "endpoint")}
+              disabled={lastCopiedItem === "endpoint"}
+              className="relative top-0 right-0 h-full pl-5 rounded-r-sm"
+            >
+              {lastCopiedItem === "endpoint" ? (
+                <Check className="h-4 w-4" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+            </button>
+          </div>
         </p>
         <p className="my-2">
           Method:
@@ -54,15 +68,15 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
           Request example:
           <div
             className="dark:bg-gray-800 relative bg-gray-300 flex
-          w-10/12 py-1 px-2 rounded-sm"
+            py-1 px-2 rounded-sm items-center w-fit"
           >
-            <code className="mr-10">{data.endpointExample}</code>
+            <code>{data.endpointExample}</code>
             <button
-              onClick={onCopy}
-              disabled={copied}
-              className="absolute top-0 right-0 h-full px-5 rounded-r-sm"
+              onClick={() => onCopy(data.endpointExample, "endpointExample")}
+              disabled={lastCopiedItem === "endpointExample"}
+              className="relative top-0 right-0 h-full pl-5 rounded-r-sm"
             >
-              {copied ? (
+              {lastCopiedItem === "endpointExample" ? (
                 <Check className="h-4 w-4" />
               ) : (
                 <Copy className="h-4 w-4" />
@@ -70,43 +84,53 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
             </button>
           </div>
         </p>
-          <details>
-            <summary>Response example:</summary>
-            <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm overflow-x-scroll">
-              {data.response}
-            </code>
-          </details>
+        <details>
+          <summary className="hover:underline hover:cursor-pointer">
+            Response example:
+          </summary>
+          <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm overflow-x-scroll">
+            {data.response}
+          </code>
+        </details>
         <div>
-          <Table>
-            <TableCaption>A list of the parameters</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Parameter</TableHead>
-                <TableHead>Value</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Required</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.parameters.map((param, index) => (
-                <TableRow key={index}>
-                  <TableCell>{param.name}</TableCell>
-                  <TableCell>{param.value}</TableCell>
-                  <TableCell>{param.type}</TableCell>
-                  <TableCell>
-                    {param.required ? (
-                      <Check className="text-green-500" />
-                    ) : (
-                      <X className="text-red-500" />
-                    )}
-                  </TableCell>
+          {data.parameters ? (
+            <Table>
+              <TableCaption>A list of the parameters</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Parameter</TableHead>
+                  <TableHead>Description</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Example</TableHead>
+                  <TableHead>Required</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {data.parameters.map((param, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{param.name}</TableCell>
+                    <TableCell>{param.description}</TableCell>
+                    <TableCell>{param.type}</TableCell>
+                    <TableCell>{param.example}</TableCell>
+                    <TableCell>
+                      {param.required ? (
+                        <Check className="text-green-500" />
+                      ) : (
+                        <X className="text-red-500" />
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <span className="text-red-600/70 text-sm">
+              No parameters for this endpoint
+            </span>
+          )}
         </div>
       </div>
-      <div className="w-11/12 my-4 border-b border-white/50 mx-auto" />
+      <div className="w-11/12 my-4 border-b border-white/40 mx-auto" />
     </>
   );
 };

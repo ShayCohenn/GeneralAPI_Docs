@@ -1,53 +1,50 @@
 "use client";
 
+import { endpoints, iconMapping } from "@/constants";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
+import { useState } from "react";
 
 interface ItemPorps {
-  expanded?: boolean;
-  active?: boolean;
-  isSearch?: boolean;
-  onExpand?: () => void;
-  onClick?: () => void;
-  level?: number;
   label: string;
-  icon: LucideIcon;
   hasChildren?: boolean;
 }
 
 const Item = ({
-  icon: Icon,
   label,
-  active,
-  hasChildren,
-  isSearch,
-  onClick,
-  onExpand,
-  level = 0,
-  expanded,
+  hasChildren
 }: ItemPorps) => {
+  const [expanded, setExpanded] = useState(false);
+  const ChevronIcon = expanded ? ChevronDown : ChevronRight;
+
   return (
     <div
-      onClick={onClick}
       role="button"
-      style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
       className={cn(
-        `group min-h-[27px] py-2 text-muted-foreground font-medium flex w-9/12
-        items-center`,
-        active && "bg-primary/10 text-primary"
+        `py-2 text-muted-foreground font-medium
+        `,
+        hasChildren ? "pl-2" : "pl-8"
       )}
     >
-      <Icon className="h-[26px] pb-1 w-[18px] mr-1 text-muted-foreground" />
-      <span className="truncate mr-4 pb-1">{label}</span>
-      {isSearch && (
-        <kbd
-          className="h-6 select-none flex items-center gap-1 rounded border px-1.5
-        font-mono text-[10px] font-medium text-muted-foreground opacity-100"
+      {hasChildren ? (
+        <div 
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center"
         >
-          <span className="text-xs">ctrl + K</span>
-        </kbd>
+          <ChevronIcon className="h-6 w-6" />
+          <span>{label}</span>
+          {Object.keys(endpoints).map((key) => {
+            const Icon = key === label && iconMapping[key];
+            return Icon ? <Icon key={key} className="h-5 w-5 ml-2"/> : null;
+          })}
+        </div>
+      ) : (
+        <a href={`#${label}`}>• {label}</a>
       )}
-      
+      <div className="">
+        {expanded &&
+          endpoints[label].map((item) => <Item label={item.title}/>)}
+      </div>
     </div>
   );
 };

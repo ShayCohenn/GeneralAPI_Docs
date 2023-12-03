@@ -12,6 +12,7 @@ import Item from "@/components/custom-components/Item";
 import SidebarContent from "@/components/custom-components/SidebarContent";
 import HomePage from "@/app/(pages)/HomePage";
 import Docs from "./(pages)/Docs";
+import About from "./(pages)/About";
 
 export default function Home() {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -118,6 +119,7 @@ export default function Home() {
         <SearchCommand />
         <HomePage />
         <Docs />
+        <About />
       </main>
     </div>
   );
