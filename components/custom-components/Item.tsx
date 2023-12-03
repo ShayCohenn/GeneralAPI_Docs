@@ -2,7 +2,7 @@
 
 import { endpoints, iconMapping } from "@/constants";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, FileQuestion, LucideIcon } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 interface ItemPorps {
@@ -36,7 +36,7 @@ const Item = ({
           {Object.keys(endpoints).map((key) => {
             const Icon = key === label && iconMapping[key];
             if(Icon) return <Icon key={key} className="h-5 w-5 ml-2"/>
-            else return <FileQuestion key={key} className="h-5 w-5 ml-2"/>
+            else return null
           })}
         </div>
       ) : (
