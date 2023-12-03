@@ -44,7 +44,7 @@ const Item = ({
       )}
       <div className="">
         {expanded &&
-          endpoints[label].map((item) => <Item label={item.title}/>)}
+          endpoints[label].map((item, index) => <Item label={item.title} key={index}/>)}
       </div>
     </div>
   );
