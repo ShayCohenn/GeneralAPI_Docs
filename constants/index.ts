@@ -49,7 +49,7 @@ export const endpoints: Categories = {
       description: "Generate a QR Code",
       limiter: "2 requests per second",
       endpointExample: "https://general-api.vercel.app/qr/generate?data=test",
-      response: `{
+      response: `{ 
         "QR_URL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMAQAAAABwo
         KUrAAABUElEQVR42u3dQYrDMAwFUNML+P63zA06MCST2JYzUJCbxfOilOC30eIjyykt70/XV
         lAURRPpVvr1+2z/2LcFW17l44WiKPrPukbQkUNdGE22qDCKounZtMUt090WFUZRdHU2HUs2

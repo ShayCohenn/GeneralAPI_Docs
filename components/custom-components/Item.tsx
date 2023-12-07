@@ -40,9 +40,9 @@ const Item = ({
           })}
         </div>
       ) : (
-        <a href={`#${label}`}>• {label}</a>
+        <a href={`#${label}`} className="truncate">• {label}</a>
       )}
-      <div className="">
+      <div>
         {expanded &&
           endpoints[label].map((item, index) => <Item label={item.title} key={index}/>)}
       </div>
