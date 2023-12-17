@@ -27,8 +27,8 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
 
   return (
     <>
-      <div className="lg:ml-4 md:ml-2" id={data.title}>
-        <h1 className="mt-4 text-2xl font-semibold xl:text-3xl 2xl:text-4xl">
+      <div className="lg:ml-4 md:ml-2 text-muted-foreground" id={data.title}>
+        <h1 className="text-neutral-800 dark:text-neutral-200 mt-4 text-2xl font-semibold xl:text-3xl 2xl:text-4xl">
           • {data.title}:
         </h1>
         <p className="mb-4 text-lg italic">&quot;{data.description}&quot;</p>

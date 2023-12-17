@@ -4,7 +4,7 @@ import { endpoints, iconMapping } from "@/constants";
 const Docs = () => {
 
   return (
-    <div className="h-fit mr-12 sm:mr-0" id="docs">
+    <div className="mx-auto" id="docs">
       {Object.keys(endpoints).map((key) => {
         const Icon = iconMapping[key];
         

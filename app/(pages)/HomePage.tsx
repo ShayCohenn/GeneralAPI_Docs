@@ -1,10 +1,22 @@
 import { Button } from "@/components/ui/button";
 import HeroImage from "../../components/custom-components/homePage/HeroImage";
-import { ChevronDown, Rocket } from "lucide-react";
+import { Check, ChevronDown, Copy, Rocket } from "lucide-react";
+import { useState } from "react";
+import { BASE_URL } from "@/constants";
 
 const HomePage = () => {
+  const [lastCopiedItem, setLastCopiedItem] = useState<string | null>(null);
+
+  const onCopy = (text: string, item: string) => {
+    navigator.clipboard.writeText(text);
+
+    setLastCopiedItem(item);
+    setTimeout(() => {
+      setLastCopiedItem(null);
+    }, 1000);
+  };
   return (
-    <div className="h-screen sm:mr-0 mr-12" id="home">
+    <div className="h-screen mx-auto" id="home">
       <HeroImage />
       <div className="flex-col items-center justify-center">
         <p
@@ -24,6 +36,23 @@ const HomePage = () => {
           <br />
           and even random dad jokes, facts and riddles
         </p>
+        <div
+          className="dark:bg-gray-800 relative bg-gray-300 flex py-1
+            px-2 rounded-sm items-center w-10/12 mx-auto mt-2 h-12 justify-between"
+        >
+          <code>{BASE_URL}</code>
+          <button
+            onClick={() => onCopy(BASE_URL, "endpointExample")}
+            disabled={lastCopiedItem === "endpointExample"}
+            className="relative top-0 right-0 h-full pl-5 rounded-r-sm"
+          >
+            {lastCopiedItem === "endpointExample" ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+          </button>
+        </div>
         <div className="mt-24 flex flex-col lg:gap-y-24 gap-y-12 items-center justify-center">
           <a href="#docs">
             <Button

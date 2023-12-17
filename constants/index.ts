@@ -1,4 +1,11 @@
-import { BadgeDollarSign, CloudSun, LucideIcon, PartyPopper, QrCode, Trophy } from "lucide-react";
+import {
+  BadgeDollarSign,
+  CloudSun,
+  LucideIcon,
+  PartyPopper,
+  QrCode,
+  Trophy,
+} from "lucide-react";
 
 export interface parameterType {
   name: string;
@@ -28,8 +35,10 @@ export const iconMapping: Record<string, LucideIcon> = {
   Finance: BadgeDollarSign,
   Weather: CloudSun,
   Sports: Trophy,
-  Entertainment: PartyPopper
+  Other: PartyPopper,
 };
+
+export const BASE_URL: string = "https://general-api.vercel.app"
 
 export const endpoints: Categories = {
   QR: [
@@ -48,7 +57,7 @@ export const endpoints: Categories = {
       ],
       description: "Generate a QR Code",
       limiter: "2 requests per second",
-      endpointExample: "https://general-api.vercel.app/qr/generate?data=test",
+      endpointExample: `${BASE_URL}/qr/generate?data=test`,
       response: `{ 
         "QR_URL":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMAQAAAABwo
         KUrAAABUElEQVR42u3dQYrDMAwFUNML+P63zA06MCST2JYzUJCbxfOilOC30eIjyykt70/XV
@@ -79,7 +88,7 @@ export const endpoints: Categories = {
         accepts values in lower and upper case`,
       limiter: "1 request per second",
       endpointExample:
-        "https://general-api.vercel.app/finance/general-info?ticker=tsla",
+        `${BASE_URL}/finance/general-info?ticker=tsla`,
       response: `{
         "address1":"1 Tesla Road",
         "city":"Austin",
@@ -222,7 +231,7 @@ export const endpoints: Categories = {
       accepts values in lower and upper case`,
       limiter: "1 request per second",
       endpointExample:
-        "https://general-api.vercel.app/finance/current-value?ticker=tsla",
+        `${BASE_URL}/finance/current-value?ticker=tsla`,
       response: `{
         "current_value":240.0800018310547,
         "info":{
@@ -263,7 +272,7 @@ export const endpoints: Categories = {
       description: `Convert currency for example USD to EUR, GBP to JPY etc... accepts values in lower and upper case`,
       limiter: "1 request per second",
       endpointExample:
-        "https://general-api.vercel.app/finance/currency-convert?from_curr=USD&to_curr=EUR&amount=10",
+        `${BASE_URL}/finance/currency-convert?from_curr=USD&to_curr=EUR&amount=10`,
       response: `{
         "result":9.199000000953674,
         "info":{
@@ -315,7 +324,7 @@ export const endpoints: Categories = {
       accepts values in lower and upper case`,
       limiter: "1 request per 2 seconds / 10 requests per minute",
       endpointExample:
-        "https://general-api.vercel.app/finance/stock-data?ticker=msft&start=2023-11-29&end=now",
+        `${BASE_URL}/finance/stock-data?ticker=msft&start=2023-11-29&end=now`,
       response: `{
         "info":{
           "ticker":"msft",
@@ -370,7 +379,7 @@ export const endpoints: Categories = {
         "Get general weather data for any city, accepts values in lower and upper case",
       limiter: "1 request per second",
       endpointExample:
-        "https://general-api.vercel.app/weather/general?city=london",
+        `${BASE_URL}/weather/general?city=london`,
       response: `{
         "city":"London",
         "coord":{
@@ -444,7 +453,7 @@ export const endpoints: Categories = {
         "Get current temperature for any city, accepts values in lower and upper case",
       limiter: "1 request per second",
       endpointExample:
-        "https://general-api.vercel.app/weather/current-temperature?city=paris&unit=kelvin",
+        `${BASE_URL}/weather/current-temperature?city=paris&unit=kelvin`,
       response: `{
         "current temperature":276.07
       }`,
@@ -469,7 +478,7 @@ export const endpoints: Categories = {
       more popular leagues and competitions untill the next 2 days`,
       limiter: "1 reqest per 2 seconds or 10 per minute",
       endpointExample:
-        "https://general-api.vercel.app/sports/football/matches?day=2",
+        `${BASE_URL}/sports/football/matches?day=2`,
       response: `[{
         "event":"Serie A",
         "time":"14:45 EST",
@@ -488,14 +497,14 @@ export const endpoints: Categories = {
       }]`,
     },
   ],
-  Entertainment: [
+  Other: [
     {
       title: "Random dad jokes",
       endpoint: "/entertainment/dad-joke",
       method: "GET",
       description: "Get 1 random dad joke",
       limiter: "1 request per second",
-      endpointExample: "https://general-api.vercel.app/entertainment/dad-joke",
+      endpointExample: `${BASE_URL}/entertainment/dad-joke`,
       response: `{
         "joke":"I'm on a whiskey diet. I've lost three days already."
       }`,
@@ -506,7 +515,8 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random yo momma joke",
       limiter: "1 request per second",
-      endpointExample: "https://general-api.vercel.app/entertainment/yo-momma-joke",
+      endpointExample:
+        `${BASE_URL}/entertainment/yo-momma-joke`,
       response: `{
         "joke":"Yo mamma is so fat every time she tries to hide she is hiding that object that she is trying to hide by"
       }`,
@@ -517,7 +527,8 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random chuck norris joke",
       limiter: "1 request per second",
-      endpointExample: "https://general-api.vercel.app/entertainment/chuck-norris-joke",
+      endpointExample:
+      `${BASE_URL}/entertainment/chuck-norris-joke`,
       response: `{
         "joke":"Chuck Norris puts the hard in hard-on."
       }`,
@@ -528,7 +539,8 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random fact",
       limiter: "1 request per second",
-      endpointExample: "https://general-api.vercel.app/entertainment/random-fact",
+      endpointExample:
+        `${BASE_URL}/entertainment/random-fact`,
       response: `{
         "fact":"Tigers not only have striped fur, they have striped skin!"
       }`,
@@ -539,7 +551,8 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random riddle",
       limiter: "1 request per second",
-      endpointExample: "https://general-api.vercel.app/entertainment/random-riddle",
+      endpointExample:
+        `${BASE_URL}/entertainment/random-riddle`,
       response: `{
         "riddle":"Where are the lakes that are referred to in the “Los Angeles Lakers?“",
         "answer":"In Minnesota. The team was originally known as the Minneapolis Lakers and kept the name when they moved west"

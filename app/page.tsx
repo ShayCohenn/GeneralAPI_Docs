@@ -5,14 +5,14 @@ import Navbar from "../components/custom-components/Navbar";
 import Sidebar from "../components/custom-components/Sidebar";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
-import { MenuIcon, Search } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { useSearch } from "@/hooks/use-search";
 import SearchCommand from "@/components/custom-components/SearchCommand";
-import Item from "@/components/custom-components/Item";
 import SidebarContent from "@/components/custom-components/SidebarContent";
 import HomePage from "@/app/(pages)/HomePage";
 import Docs from "./(pages)/Docs";
 import About from "./(pages)/About";
+import Footer from "@/components/custom-components/Footer";
 
 export default function Home() {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -120,6 +120,7 @@ export default function Home() {
         <HomePage />
         <Docs />
         <About />
+        <Footer/>
       </main>
     </div>
   );
