@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div
       className="text-neutral-950 dark:text-neutral-100 fixed bottom-0 w-full bg-neutral-100 h-32
-    dark:bg-neutral-950 flex flex-col flex-wrap gap-y-2 py-2"
+    dark:bg-neutral-950 flex flex-col flex-wrap gap-y-2 py-2 justify-center xl:items-center"
     >
       <a
         className="border-none hover:underline underline-offset-4 flex"
@@ -46,10 +46,6 @@ const Footer = () => {
         <Github className="mx-1" />
         Github
       </a>
-      <p className="flex truncate">
-        <Mail className="mx-1" /> shay91847@gmail.com
-      </p>
-      <p></p>
     </div>
   );
 };

@@ -10,8 +10,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DocsItemProp } from "@/constants";
-import { Check, Copy, Medal, X } from "lucide-react";
+import { Check, Copy, X } from "lucide-react";
 import { useState } from "react";
+import CopyCodeBox from "../CopyCodeBox";
 
 const DocsItem = ({ data }: { data: DocsItemProp }) => {
   const [lastCopiedItem, setLastCopiedItem] = useState<string | null>(null);
@@ -27,72 +28,54 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
 
   return (
     <>
-      <div className="lg:ml-4 md:ml-2 text-muted-foreground" id={data.title}>
+      {/* Assigning the title of the endpoint as the id of the component */}
+      <div
+        className="lg:ml-4 md:ml-2 text-neutral-700 dark:text-neutral-300 "
+        id={data.title}
+      >
+        {/* Title */}
         <h1 className="text-neutral-800 dark:text-neutral-200 mt-4 text-2xl font-semibold xl:text-3xl 2xl:text-4xl">
           • {data.title}:
         </h1>
+        {/* Description */}
         <p className="mb-4 text-lg italic">&quot;{data.description}&quot;</p>
-        <p className="my-2 flex items-center">
+        {/* Copy box endpoint */}
+        <p className="my-2">
           Endpoint:
-          <div
-            className="dark:bg-gray-800 relative bg-gray-300 flex
-            py-1 px-2 rounded-sm items-center w-fit"
-          >
-            <code>{data.endpoint}</code>
-            <button
-              onClick={() => onCopy(data.endpoint, "endpoint")}
-              disabled={lastCopiedItem === "endpoint"}
-              className="relative top-0 right-0 h-full pl-5 rounded-r-sm"
-            >
-              {lastCopiedItem === "endpoint" ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
-            </button>
-          </div>
+          <CopyCodeBox text={data.endpoint} />
         </p>
+        {/* Reqest method */}
         <p className="my-2">
           Method:
           <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm">
             {data.method}
           </code>
         </p>
-        <p className="my-2">
+        {/* Endpoint limiter */}
+        <p className="my-2 flex">
           Request limiter:
           <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm">
             {data.limiter}
           </code>
         </p>
+        {/* Copy box request example */}
         <p className="my-2">
           Request example:
-          <div
-            className="dark:bg-gray-800 relative bg-gray-300 flex
-            py-1 px-2 rounded-sm items-center w-fit"
-          >
-            <code>{data.endpointExample}</code>
-            <button
-              onClick={() => onCopy(data.endpointExample, "endpointExample")}
-              disabled={lastCopiedItem === "endpointExample"}
-              className="relative top-0 right-0 h-full pl-5 rounded-r-sm"
-            >
-              {lastCopiedItem === "endpointExample" ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
-            </button>
-          </div>
+          <CopyCodeBox text={data.endpointExample} />
         </p>
+        {/* Expandable Response example */}
         <details>
           <summary className="hover:underline hover:cursor-pointer">
             Response example:
           </summary>
-          <code className="dark:bg-gray-800 bg-gray-300 py-1 px-2 ml-2 rounded-sm overflow-x-scroll">
-            {data.response}
-          </code>
+          <div className="bg-gray-300 dark:bg-gray-800 w-fit">
+            <code className="whitespace-pre py-1 px-2 ml-2 rounded-sm overflow-x-scroll">
+              {data.response}
+            </code>
+          </div>
         </details>
         <div>
+          {/* Parameters */}
           {data.parameters ? (
             <Table>
               <TableCaption>A list of the parameters</TableCaption>

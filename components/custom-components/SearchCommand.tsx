@@ -53,7 +53,7 @@ const SearchCommand = () => {
                   key={index}
                   value={item.title}
                   title={item.title}
-                  onSelect={onSelect}
+                  onSelect={() => onSelect(item.title)}
                   className="hover:cursor-pointer dark:hover:bg-neutral-800 hover:bg-neutral-200"
                 >
                   {item.title}

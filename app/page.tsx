@@ -6,13 +6,13 @@ import Sidebar from "../components/custom-components/Sidebar";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
-import { useSearch } from "@/hooks/use-search";
 import SearchCommand from "@/components/custom-components/SearchCommand";
 import SidebarContent from "@/components/custom-components/SidebarContent";
 import HomePage from "@/app/(pages)/HomePage";
 import Docs from "./(pages)/Docs";
 import About from "./(pages)/About";
 import Footer from "@/components/custom-components/Footer";
+import { endpoints } from "@/constants";
 
 export default function Home() {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -84,7 +84,6 @@ export default function Home() {
     }
   };
 
-  const search = useSearch();
   return (
     <div>
       <div>
@@ -97,7 +96,7 @@ export default function Home() {
           resetWidth={resetWidth}
           sidebarRef={sidebarRef}
         >
-          <SidebarContent />
+          <SidebarContent/>
         </Sidebar>
         {isCollapsed && !isResetting && (
           <MenuIcon
@@ -110,9 +109,8 @@ export default function Home() {
       <main
         ref={mainRef}
         className={cn(
-          `absolute top-16 pl-2 mt-2 w-[calc(900%-240px)]`,
+          `absolute top-16 w-[calc(900%-240px)] pb-20`,
           isResetting && "transition-all ease-in-out duration-300",
-          isMobile && "left-0 w-full",
           isCollapsed && "pl-12"
         )}
       >

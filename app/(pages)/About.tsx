@@ -1,10 +1,11 @@
 const About = () => {
   return (
-    <div className="h-screen" id="about">
+    <div className="h-screen sm:mr-0 mr-12" id="about">
       <h1 className="text-3xl font-semibold">About GeneralAPI</h1>
       <br />
       <p className="text-xl">
-        GeneralAPI is an open source project&#40;any contributions are welcome&#41;,
+        GeneralAPI is an open source project&#40;any contributions are
+        welcome&#41;,
         <br /> it was built to help create simple features for your next
         website/application. <br />
         <br />

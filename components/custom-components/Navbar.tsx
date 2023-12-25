@@ -4,7 +4,7 @@ import Image from "next/image";
 const Navbar = () => {
   return (
     <nav className="h-16 z-[99999] w-full dark:bg-neutral-950 
-    bg-neutral-100 fixed top-0 flex justify-between items-center
+    bg-neutral-100 fixed flex justify-between items-center
      shadow-xl shadow-black/10 dark:shadow-white/10">
       <a href="#home">
       <Image

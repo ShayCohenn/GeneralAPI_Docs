@@ -12,7 +12,7 @@ interface ItemPorps {
 
 const Item = ({
   label,
-  hasChildren
+  hasChildren,
 }: ItemPorps) => {
   const [expanded, setExpanded] = useState(false);
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
@@ -21,11 +21,12 @@ const Item = ({
     <div
       role="button"
       className={cn(
-        `py-2 text-muted-foreground font-medium
-        `,
-        hasChildren ? "pl-2" : "pl-8"
+        `py-2 dark:text-neutral-300 text-neutral-600 font-medium 
+        hover:text-neutral-950 dark:hover:text-neutral-50`,
+        hasChildren ? "pl-2" : "pl-8",
       )}
     >
+      {/* If an item has children - render them if not render the title */}
       {hasChildren ? (
         <div 
         onClick={() => setExpanded(!expanded)}
@@ -42,9 +43,10 @@ const Item = ({
       ) : (
         <a href={`#${label}`} className="truncate">• {label}</a>
       )}
+      {/* Display the children elements */}
       <div>
         {expanded &&
-          endpoints[label].map((item, index) => <Item label={item.title} key={index}/>)}
+          endpoints[label].map((item, index) => <Item label={item.title} key={index} />)}
       </div>
     </div>
   );

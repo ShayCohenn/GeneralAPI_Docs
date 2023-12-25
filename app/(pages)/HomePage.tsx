@@ -1,26 +1,17 @@
 import { Button } from "@/components/ui/button";
 import HeroImage from "../../components/custom-components/homePage/HeroImage";
-import { Check, ChevronDown, Copy, Rocket } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, Rocket } from "lucide-react";
 import { BASE_URL } from "@/constants";
+import CopyCodeBox from "@/components/custom-components/CopyCodeBox";
 
 const HomePage = () => {
-  const [lastCopiedItem, setLastCopiedItem] = useState<string | null>(null);
-
-  const onCopy = (text: string, item: string) => {
-    navigator.clipboard.writeText(text);
-
-    setLastCopiedItem(item);
-    setTimeout(() => {
-      setLastCopiedItem(null);
-    }, 1000);
-  };
   return (
-    <div className="h-screen mx-auto" id="home">
+    <div className="h-screen sm:mr-0 mr-12" id="home">
+      {/* Logo */}
       <HeroImage />
       <div className="flex-col items-center justify-center">
         <p
-          className="text-center xl:mt-24 xl:text-3xl lg:text-2xl md:text-xl 
+          className="text-center xl:text-3xl lg:text-2xl md:text-xl 
           text-sm text-neutral-950 dark:text-neutral-200"
         >
           Welcome to GeneralAPI&apos;s documentation site.
@@ -36,24 +27,10 @@ const HomePage = () => {
           <br />
           and even random dad jokes, facts and riddles
         </p>
-        <div
-          className="dark:bg-gray-800 relative bg-gray-300 flex py-1
-            px-2 rounded-sm items-center w-10/12 mx-auto mt-2 h-12 justify-between"
-        >
-          <code>{BASE_URL}</code>
-          <button
-            onClick={() => onCopy(BASE_URL, "endpointExample")}
-            disabled={lastCopiedItem === "endpointExample"}
-            className="relative top-0 right-0 h-full pl-5 rounded-r-sm"
-          >
-            {lastCopiedItem === "endpointExample" ? (
-              <Check className="h-4 w-4" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
-          </button>
-        </div>
-        <div className="mt-24 flex flex-col lg:gap-y-24 gap-y-12 items-center justify-center">
+        {/* URL with copy button */}
+        <CopyCodeBox text={BASE_URL} main />
+        {/* Get started button */}
+        <div className="mt-12 flex flex-col lg:gap-y-24 gap-y-12 items-center justify-center">
           <a href="#docs">
             <Button
               className="bg-sky-700 md:h-20 md:w-44 md:text-xl h-16 w-36 

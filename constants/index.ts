@@ -54,6 +54,41 @@ export const endpoints: Categories = {
           type: "string",
           required: true,
         },
+        {
+          name: "back_color",
+          description: "The background color of the QR code, defalut is white",
+          example: "&back_color=red",
+          type: "string",
+          required: false,
+        },
+        {
+          name: "front_color",
+          description: "The color of the QR code, defalut is black",
+          example: "&front_color=blue",
+          type: "string",
+          required: false,
+        },
+        {
+          name: "scale",
+          description: "Size of the image, default is 20",
+          example: "&scale=50",
+          type: "int",
+          required: false,
+        },
+        {
+          name: "border_size",
+          description: "Size of the border, default is 1",
+          example: "&border_size=4",
+          type: "int",
+          required: false,
+        },
+        {
+          name: "border_color",
+          description: "Color of the border, default is white",
+          example: "&border_color=black",
+          type: "string",
+          required: false,
+        },
       ],
       description: "Generate a QR Code",
       limiter: "2 requests per second",
@@ -232,15 +267,15 @@ export const endpoints: Categories = {
       limiter: "1 request per second",
       endpointExample:
         `${BASE_URL}/finance/current-value?ticker=tsla`,
-      response: `{
-        "current_value":240.0800018310547,
-        "info":{
-          "ticker":"tsla",
-          "company":"Tesla, Inc.",
-          "currency":"USD",
-          "date":"2023-12-01, 13:43:54"
-        }
-      }`,
+      response: `{                                  
+  "current_value":240.0800018310547, 
+  "info":{                           
+    "ticker":"tsla",                 
+    "company":"Tesla, Inc.",         
+    "currency":"USD",                
+    "date":"2023-12-01, 13:43:54"    
+  }                                  
+}                                   `,
     },
     {
       title: "Currency conversion",
