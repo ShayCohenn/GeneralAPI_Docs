@@ -1,6 +1,7 @@
 import {
   BadgeDollarSign,
   CloudSun,
+  Database,
   LucideIcon,
   PartyPopper,
   QrCode,
@@ -36,6 +37,7 @@ export const iconMapping: Record<string, LucideIcon> = {
   Weather: CloudSun,
   Sports: Trophy,
   Other: PartyPopper,
+  Data: Database
 };
 
 export const BASE_URL: string = "https://general-api.vercel.app"
@@ -594,4 +596,55 @@ export const endpoints: Categories = {
       }`,
     },
   ],
+  Data:[
+    {
+      title:"Cities",
+      endpoint: "/data/cities",
+      method: "GET",
+      description: "Get a list of cities",
+      limiter: "1 request per second",
+      endpointExample: `${BASE_URL}/data/cities?city=rome`,
+      parameters:[
+        {
+          name:"city",
+          description:"query cities",
+          example:"?city=tel aviv",
+          type:"string",
+          required:true
+        },
+        {
+          name:"country",
+          description:"To help you find what you're looking for you can search by country too",
+          example:"&country=israel",
+          type:"string",
+          required:false
+        }
+      ],
+      response:`[
+        {"city":"Rome","country":"United States"},
+        {"city":"Rome","country":"United States"},
+        {"city":"Rome","country":"United States"},
+        {"city":"Rome","country":"United States"},
+        {"city":"Rome","country":"United States"},
+        {"city":"Rome","country":"United States"},
+        {"city":"Rome","country":"Italy"},
+        {"city":"Romeo","country":"United States"},
+        {"city":"Romeno","country":"Italy"},
+        {"city":"Romenay","country":"France"},
+        {"city":"Romeral","country":"Spain"},
+        {"city":"Rometta","country":"Italy"},
+        {"city":"Romegoux","country":"France"},
+        {"city":"Rome City","country":"United States"},
+        {"city":"Romedenne","country":"Belgium"},
+        {"city":"Romentino","country":"Italy"},
+        {"city":"Romerillo","country":"Mexico"},
+        {"city":"Romeoville","country":"United States"},
+        {"city":"Romescamps","country":"France"},
+        {"city":"Romershoven","country":"Belgium"},
+        {"city":"Romea Vecchia","country":"Italy"},
+        {"city":"Rometta Marea","country":"Italy"},
+        {"city":"Romero de Guzmán","country":"Mexico"},
+        {"city":"Romero de Torres","country":"Mexico"}]`
+    }
+  ]
 };
