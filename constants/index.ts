@@ -1,11 +1,11 @@
 import {
   BadgeDollarSign,
   CloudSun,
-  Database,
   LucideIcon,
   PartyPopper,
   QrCode,
   Trophy,
+  Globe
 } from "lucide-react";
 
 export interface parameterType {
@@ -37,10 +37,10 @@ export const iconMapping: Record<string, LucideIcon> = {
   Weather: CloudSun,
   Sports: Trophy,
   Other: PartyPopper,
-  Data: Database
+  Geo: Globe,
 };
 
-export const BASE_URL: string = "https://general-api.vercel.app"
+export const BASE_URL: string = "https://general-api.vercel.app";
 
 export const endpoints: Categories = {
   QR: [
@@ -124,8 +124,7 @@ export const endpoints: Categories = {
       description: `Get general information about a company providing its ticker symbol,
         accepts values in lower and upper case`,
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/finance/general-info?ticker=tsla`,
+      endpointExample: `${BASE_URL}/finance/general-info?ticker=tsla`,
       response: `{
         "address1":"1 Tesla Road",
         "city":"Austin",
@@ -267,8 +266,7 @@ export const endpoints: Categories = {
       description: `Get the current price of any company's stock,
       accepts values in lower and upper case`,
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/finance/current-value?ticker=tsla`,
+      endpointExample: `${BASE_URL}/finance/current-value?ticker=tsla`,
       response: `{                                  
   "current_value":240.0800018310547, 
   "info":{                           
@@ -308,8 +306,7 @@ export const endpoints: Categories = {
       ],
       description: `Convert currency for example USD to EUR, GBP to JPY etc... accepts values in lower and upper case`,
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/finance/currency-convert?from_curr=USD&to_curr=EUR&amount=10`,
+      endpointExample: `${BASE_URL}/finance/currency-convert?from_curr=USD&to_curr=EUR&amount=10`,
       response: `{
         "result":9.199000000953674,
         "info":{
@@ -360,8 +357,7 @@ export const endpoints: Categories = {
       description: `Get stock data from any period of time until present day,
       accepts values in lower and upper case`,
       limiter: "1 request per 2 seconds / 10 requests per minute",
-      endpointExample:
-        `${BASE_URL}/finance/stock-data?ticker=msft&start=2023-11-29&end=now`,
+      endpointExample: `${BASE_URL}/finance/stock-data?ticker=msft&start=2023-11-29&end=now`,
       response: `{
         "info":{
           "ticker":"msft",
@@ -415,8 +411,7 @@ export const endpoints: Categories = {
       description:
         "Get general weather data for any city, accepts values in lower and upper case",
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/weather/general?city=london`,
+      endpointExample: `${BASE_URL}/weather/general?city=london`,
       response: `{
         "city":"London",
         "coord":{
@@ -489,8 +484,7 @@ export const endpoints: Categories = {
       description:
         "Get current temperature for any city, accepts values in lower and upper case",
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/weather/current-temperature?city=paris&unit=kelvin`,
+      endpointExample: `${BASE_URL}/weather/current-temperature?city=paris&unit=kelvin`,
       response: `{
         "current temperature":276.07
       }`,
@@ -507,15 +501,14 @@ export const endpoints: Categories = {
           description: `The day of the matches, there are 3 options:
            0 - today, 1 - tomorrow, 2 - in 2 days, default is 0(today)`,
           example: "?day=0",
-          type: "number",
+          type: "int",
           required: false,
         },
       ],
       description: `Get an array of the upcoming football matches from the 
       more popular leagues and competitions untill the next 2 days`,
       limiter: "1 reqest per 2 seconds or 10 per minute",
-      endpointExample:
-        `${BASE_URL}/sports/football/matches?day=2`,
+      endpointExample: `${BASE_URL}/sports/football/matches?day=2`,
       response: `[{
         "event":"Serie A",
         "time":"14:45 EST",
@@ -552,8 +545,7 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random yo momma joke",
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/entertainment/yo-momma-joke`,
+      endpointExample: `${BASE_URL}/entertainment/yo-momma-joke`,
       response: `{
         "joke":"Yo mamma is so fat every time she tries to hide she is hiding that object that she is trying to hide by"
       }`,
@@ -564,8 +556,7 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random chuck norris joke",
       limiter: "1 request per second",
-      endpointExample:
-      `${BASE_URL}/entertainment/chuck-norris-joke`,
+      endpointExample: `${BASE_URL}/entertainment/chuck-norris-joke`,
       response: `{
         "joke":"Chuck Norris puts the hard in hard-on."
       }`,
@@ -576,8 +567,7 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random fact",
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/entertainment/random-fact`,
+      endpointExample: `${BASE_URL}/entertainment/random-fact`,
       response: `{
         "fact":"Tigers not only have striped fur, they have striped skin!"
       }`,
@@ -588,63 +578,158 @@ export const endpoints: Categories = {
       method: "GET",
       description: "Get 1 random riddle",
       limiter: "1 request per second",
-      endpointExample:
-        `${BASE_URL}/entertainment/random-riddle`,
+      endpointExample: `${BASE_URL}/entertainment/random-riddle`,
       response: `{
         "riddle":"Where are the lakes that are referred to in the “Los Angeles Lakers?“",
         "answer":"In Minnesota. The team was originally known as the Minneapolis Lakers and kept the name when they moved west"
       }`,
     },
   ],
-  Data:[
+  Geo: [
     {
-      title:"Cities",
-      endpoint: "/data/cities",
+      title: "Cities",
+      endpoint: "/geo/cities",
       method: "GET",
-      description: "Get a list of cities",
+      description:
+        `Get a list of cities and their country, with more optional data such as flag image, flag emoji and dial code of the country
+        Good for a searchable list - you get all the cities that start with the string in the city parameter,
+        exact result will show first and then they will be ordered by largest city to smallest`,
       limiter: "1 request per second",
-      endpointExample: `${BASE_URL}/data/cities?city=rome`,
-      parameters:[
+      endpointExample: `${BASE_URL}/geo/cities?city=rome`,
+      parameters: [
         {
-          name:"city",
-          description:"query cities",
-          example:"?city=tel aviv",
-          type:"string",
-          required:true
+          name: "city",
+          description: "Query the cities list",
+          example: "?city=tel aviv",
+          type: "string",
+          required: true,
         },
         {
-          name:"country",
-          description:"To help you find what you're looking for you can search by country too",
-          example:"&country=israel",
+          name: "country",
+          description:
+            "To help you find what you're looking for you can search by country too",
+          example: "&country=israel",
+          type: "string",
+          required: false,
+        },
+        {
+          name: "flag",
+          description:
+            "Get the country's flag - you get a URL of the flag's image",
+          example: "&flag=True",
+          type: "boolean",
+          required: false,
+        },
+        {
+          name: "emoji",
+          description:
+            "Get the country's emoji",
+          example: "&emoji=True",
+          type: "boolean",
+          required: false,
+        },
+        {
+          name: "dial_code",
+          description:
+            "Get the country's phone dial code e.g. (Israel - +972, USA - +1, Italy - +39 etc...)",
+          example: "&country_code=True",
+          type: "boolean",
+          required: false,
+        },
+        {
+          name: "country_code",
+          description:
+            "Get the coutry's code e.g. (UK - United Kingdom, US - United States, IL - Israel etc...)",
+          example: "&country_code=True",
+          type: "boolean",
+          required: false,
+        },
+        {
+          name: "limit",
+          description:
+            "Limit the amount of results you get",
+          example: "&limit=5",
+          type: "int",
+          required: false,
+        },
+      ],
+      response: `[
+        {"city":"Rome","country":"Italy"},
+        {"city":"Rome","country":"United States"},
+        {"city":"Romeoville","country":"United States"},
+        {"city":"Romentino","country":"Italy"},
+        {"city":"Rometta Marea","country":"Italy"},
+        {"city":"Romeo","country":"United States"},
+        {"city":"Romenay","country":"France"},
+        {"city":"Rome City","country":"United States"},
+        {"city":"Romerillo","country":"Mexico"},
+        {"city":"Romero de Torres","country":"Mexico"},
+        {"city":"Romero de Guzman","country":"Mexico"},
+        {"city":"Romea Vecchia","country":"Italy"},
+        {"city":"Rometta","country":"Italy"},
+        {"city":"Romeral","country":"Spain"},
+        {"city":"Romershoven","country":"Belgium"},
+        {"city":"Romeno","country":"Italy"},
+        {"city":"Romedenne","country":"Belgium"},
+        {"city":"Romegoux","country":"France"},
+        {"city":"Romescamps","country":"France"}
+      ]`,
+    },
+    {
+      title:"Countries",
+      endpoint: "geo/countries",
+      method: "GET",
+      description:
+      `Get a list of countries, with more optional data such as flag image, flag emoji and dial code of the country
+      Good for a searchable list - you get all the countries that start with the string in the country parameter`,
+      limiter:"1 request per second",
+      endpointExample: `${BASE_URL}/geo/countries?country=un&flag=true`,
+      parameters:[
+        {
+          name: "country",
+          description: "Query the counties list",
+          example:"?country=fra",
           type:"string",
-          required:false
+          required: true
+        },
+        {
+          name: "flag",
+          description: "Get the country's flag - you get a URL of the flag's image",
+          example:"&flag=true",
+          type:"boolean",
+          required: false
+        },
+        {
+          name: "dial_code",
+          description: "Get the coutry's code e.g. (UK - United Kingdom, US - United States, IL - Israel etc...)",
+          example:"&dial_code=true",
+          type:"boolean",
+          required: false
+        },
+        {
+          name: "emoji",
+          description: "Get the country's emoji",
+          example:"&emoji=true",
+          type:"boolean",
+          required: false
         }
       ],
-      response:`[
-        {"city":"Rome","country":"United States"},
-        {"city":"Rome","country":"United States"},
-        {"city":"Rome","country":"United States"},
-        {"city":"Rome","country":"United States"},
-        {"city":"Rome","country":"United States"},
-        {"city":"Rome","country":"United States"},
-        {"city":"Rome","country":"Italy"},
-        {"city":"Romeo","country":"United States"},
-        {"city":"Romeno","country":"Italy"},
-        {"city":"Romenay","country":"France"},
-        {"city":"Romeral","country":"Spain"},
-        {"city":"Rometta","country":"Italy"},
-        {"city":"Romegoux","country":"France"},
-        {"city":"Rome City","country":"United States"},
-        {"city":"Romedenne","country":"Belgium"},
-        {"city":"Romentino","country":"Italy"},
-        {"city":"Romerillo","country":"Mexico"},
-        {"city":"Romeoville","country":"United States"},
-        {"city":"Romescamps","country":"France"},
-        {"city":"Romershoven","country":"Belgium"},
-        {"city":"Romea Vecchia","country":"Italy"},
-        {"city":"Rometta Marea","country":"Italy"},
-        {"city":"Romero de Guzmán","country":"Mexico"},
-        {"city":"Romero de Torres","country":"Mexico"}]`
+      response:`
+      [
+        {
+          "country":"United States",
+          "dial_code":"+1"
+        },
+        {
+          "country":"United Kingdom",
+          "dial_code":"+44"
+        },
+        {
+          "country":"United Arab Emirates",
+          "dial_code":"+971"
+        }
+      ]
+      `
     }
-  ]
+  ],
 };

@@ -68,7 +68,7 @@ const DocsItem = ({ data }: { data: DocsItemProp }) => {
           <summary className="hover:underline hover:cursor-pointer">
             Response example:
           </summary>
-          <div className="bg-gray-300 dark:bg-gray-800 w-fit">
+          <div className="bg-gray-300 dark:bg-gray-800 w-fit min-w-[500px]">
             <code className="whitespace-pre py-1 px-2 ml-2 rounded-sm overflow-x-scroll">
               {data.response}
             </code>
